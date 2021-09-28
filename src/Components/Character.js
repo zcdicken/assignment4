@@ -3,6 +3,15 @@ import React from "react";
 function Character(props) {
 
     const [data] = React.useState(props.data.moves);
+    const [flip, flipIt] = React.useState(false);
+
+    const toggle=()=>{
+        if(flip === true) {
+            flipIt(false);
+        } else {
+            flipIt(true);
+        }
+    }
 
     const elements = data.map((itm,idx)=>
         <p key={idx} data={itm}>{itm}</p>
@@ -21,12 +30,13 @@ function Character(props) {
         backgroundColor: props.data.color,
     }
     return(
-        <div className={"Character"} style={style}>
+        <div className={"Character"} style={style} onClick={()=>toggle()}>
             <p>Name: {props.data.name}</p>
             <p>Superpower: {props.data.power}</p>
             <p>Age: {props.data.age}</p>
             <p>Special Moves:</p>
             {elements}
+            {flip && <p>My power is {props.data.power}</p>}
         </div>
     )
 }
